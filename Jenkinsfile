@@ -19,19 +19,6 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-	stage('Sonar') {
-	    steps {
-	    	docker.image('sonarqube:latest').withRun('-p 9999:9000') { c ->
-		     sh 'while ! ping http://localhost:9999 --silent; do sleep 1; done'
-		     
-		     def scannerHome = tool 'SQ Scanner'
-		     withSonarQubeEnv('SQ Scanner') {
-		     	env.SQ_HOSTNAME = 'http://localhost:9999';
-			sh 'sonar-scanner'
-		     }
-		}
-	    }
-	}
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
