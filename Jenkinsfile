@@ -27,7 +27,7 @@ pipeline {
 		     def scannerHome = tool 'SQ Scanner'
 		     withSonarQubeEnv('SQ Scanner') {
 		     	env.SQ_HOSTNAME = 'http://localhost:9999';
-			run SonarQube scan ...
+			sh 'sonar-scanner'
 		     }
 		}
 	    }
