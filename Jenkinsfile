@@ -21,7 +21,15 @@ pipeline {
         }
 	stage('Sonar') {
 	    steps {
-	    	sh 'sonar-scanner -Dsonar.host.url=http://localhost:9999'
+	    	docker.image('sonarqube:latest').withRun('-p 9999:9000') { c ->
+		     sh 'while ! ping http://localhost:9999 --silent; do sleep 1; done'
+		     
+		     def scannerHome = tool 'SQ Scanner'
+		     withSonarQubeEnv('SQ Scanner') {
+		     	env.SQ_HOSTNAME = 'http://localhost:9999';
+			run SonarQube scan ...
+		     }
+		}
 	    }
 	}
         stage('Deliver') {
