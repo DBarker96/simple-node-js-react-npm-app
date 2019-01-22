@@ -21,7 +21,7 @@ pipeline {
         }
 	stage('Sonar') {
 	    steps {
-	    	sh 'sonar-scanner'
+	    	sh 'sonar-scanner -Dsonar.host.url=http://localhost:9999'
 	    }
 	}
         stage('Deliver') {
