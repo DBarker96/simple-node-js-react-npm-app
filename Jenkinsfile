@@ -20,7 +20,9 @@ pipeline {
             }
         }
 	stage('Sonar') {
-	    sh 'sonar-scanner'	
+	    steps {
+	    	sh 'sonar-scanner'
+	    }	
 	}
         stage('Deliver') {
             steps {
