@@ -19,11 +19,6 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-	stage('Sonar') {
-	    steps {
-	    	sh 'sonar-scanner'
-	    }	
-	}
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
